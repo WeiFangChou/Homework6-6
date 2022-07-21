@@ -22,7 +22,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        pageControl.numberOfPages = images.count
+        image.backgroundColor = UIColor(
+            red: CGFloat(redSlider.value / 255),
+            green: CGFloat(greenSlider.value / 255),
+            blue: CGFloat(blueSlider.value / 255),
+            alpha: CGFloat(alphaSlider.value / 255)
+        )
     }
 
     @IBAction func sliderChange(_ sender: UISlider) {
@@ -43,7 +48,12 @@ class ViewController: UIViewController {
         greenSlider.value = 0
         blueSlider.value = 0
         alphaSlider.value = 255
-        
+        image.backgroundColor = UIColor(
+            red: CGFloat(redSlider.value / 255),
+            green: CGFloat(greenSlider.value / 255),
+            blue: CGFloat(blueSlider.value / 255),
+            alpha: CGFloat(alphaSlider.value / 255)
+        )
         
         
     }
@@ -64,15 +74,22 @@ class ViewController: UIViewController {
         image.image = UIImage(named: images[index])
         pageControl.currentPage = index
         segment.selectedSegmentIndex = index
+        stepper.value = Double(index)
     }
     
+    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
+        index = sender.currentPage
+        image.image = UIImage(named: images[index])
+        stepper.value = Double(index)
+        segment.selectedSegmentIndex = index
+    }
     
     @IBAction func segmentValueChanged(_ sender: UISegmentedControl) {
         
         index = sender.selectedSegmentIndex
         image.image = UIImage(named: images[index])
         pageControl.currentPage = index
-        
+        stepper.value = Double(index)
         
     }
     

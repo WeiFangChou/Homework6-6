@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var blueSlider: UISlider!
     @IBOutlet weak var greenSlider: UISlider!
     @IBOutlet weak var redSlider: UISlider!
-    
+    @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var pageControl: UIPageControl!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +44,15 @@ class ViewController: UIViewController {
         blueSlider.value = 0
         alphaSlider.value = 255
         
+        
+        
     }
     
     
     @IBAction func swipeLeft(_ sender: UISwipeGestureRecognizer) {
-        if(sender.direction == .right){
+        if(sender.direction == .left){
             index += 1
-        }else if (sender.direction == .left){
+        }else if (sender.direction == .right){
             index -= 1
             
         }
@@ -60,10 +63,27 @@ class ViewController: UIViewController {
         }
         image.image = UIImage(named: images[index])
         pageControl.currentPage = index
-        
+        segment.selectedSegmentIndex = index
     }
     
     
+    @IBAction func segmentValueChanged(_ sender: UISegmentedControl) {
+        
+        index = sender.selectedSegmentIndex
+        image.image = UIImage(named: images[index])
+        pageControl.currentPage = index
+        
+        
+    }
     
+    @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        
+        index = Int(stepper.value)
+        image.image = UIImage(named: images[index])
+        pageControl.currentPage = index
+        segment.selectedSegmentIndex = index
+        
+        
+    }
     
 }
